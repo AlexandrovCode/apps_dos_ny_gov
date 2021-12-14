@@ -108,7 +108,7 @@ class Handler(Extract, GetPages):
                     'name': agent['name'],
                     'mdaas:RegisteredAddress': {
                         'zip': agent['address']['zipCode'],
-                        'streetAddress': agent['address']['streetAddress2'] + ' ' + agent['address']['streetAddress2'],
+                        'streetAddress': agent['address']['streetAddress1'] + ' ' + agent['address']['streetAddress2'],
                         'city': agent['address']['city'],
                         'country': agent['address']['countryCode'],
                     }
@@ -116,7 +116,6 @@ class Handler(Extract, GetPages):
                 temp_addr = temp_dict['mdaas:RegisteredAddress']
                 temp_addr[
                     'fullAddress'] = f"{temp_addr['streetAddress']}, {temp_addr['zip']}, {temp_addr['city']}, {temp_addr['country']}"
-                print(temp_dict)
                 return temp_dict
             else:
                 return None
@@ -203,7 +202,7 @@ class Handler(Extract, GetPages):
             company['agent'] = reg_agent
 
         company['@source-id'] = self.NICK_NAME
-
+        #print(company)
         return company
 
     def get_officership(self, link):
