@@ -49,7 +49,7 @@ class Handler(Extract, GetPages):
             ],
             "listPaginationInfo": {
                 "listStartRecord": 1,
-                "listEndRecord": 50
+                "listEndRecord": 500
             }
         }
         d = json.dumps(data)
@@ -66,16 +66,24 @@ class Handler(Extract, GetPages):
             address = res['sopAddress']['address']
         except:
             return None
-        temp_dict = {
-            "zip": address.get('zipCode'),
-            "country": address.get('country'),
-            "streetAddress": address.get('streetAddress'),
-            "city": address.get('city'),
-        }
-        temp_dict[
-            'fullAddress'] = f"{temp_dict['streetAddress']}, {temp_dict['zip']}, {temp_dict['city']}, {temp_dict['country']}"
-
-        return temp_dict
+        temp_dict = {}
+        zip = address.get('zipCode')
+        country = address.get('country')
+        street = address.get('streetAddress')
+        city = address.get('city')
+        if zip and country and street and city:
+            temp_dict = {
+                "zip": address.get('zipCode'),
+                "country": address.get('country'),
+                "streetAddress": address.get('streetAddress'),
+                "city": address.get('city'),
+            }
+            temp_dict[
+                'fullAddress'] = f"{temp_dict['streetAddress']}, {temp_dict['zip']}, {temp_dict['city']}, {temp_dict['country']}"
+        if temp_dict:
+            return temp_dict
+        else:
+            return None
 
     def get_prev_names(self, tree):
         previous_names = []

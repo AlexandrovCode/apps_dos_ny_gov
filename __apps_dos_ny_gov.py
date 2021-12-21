@@ -7,7 +7,7 @@ if __name__ == '__main__':
 
     a = Handler()
 
-    final_data = a.Execute('10 EXPONENT 13 BANK & AIRLINE INVESTMENT CORPORATION', '', '', '')
+    final_data = a.Execute('CORP U.S.A.', '', '', '')
     print(json.dumps(final_data, indent=4))
 
     elapsed_time = time.time() - start_time
